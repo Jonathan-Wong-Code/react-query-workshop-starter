@@ -1,12 +1,12 @@
-import React, { useReducer } from "react";
+import React, { useReducer } from 'react';
 
-const { v4: uuidv4 } = require("uuid");
+const { v4: uuidv4 } = require('uuid');
 const reducer = (oldState, newState) => ({ ...oldState, ...newState });
 
 const PostForm = ({ onSubmit, isError, error, originalPost }) => {
   const [{ title, blogPost }, setState] = useReducer(reducer, {
-    title: originalPost ? originalPost.title : "",
-    blogPost: originalPost ? originalPost.blogPost : "",
+    title: originalPost ? originalPost.title : '',
+    blogPost: originalPost ? originalPost.blogPost : '',
   });
 
   const handleSubmit = async (e) => {
@@ -23,33 +23,33 @@ const PostForm = ({ onSubmit, isError, error, originalPost }) => {
 
   return (
     <section>
-      <form onSubmit={handleSubmit} data-testid="post-form">
+      <form onSubmit={handleSubmit} data-testid='post-form'>
         <div>
-          <label htmlFor="title" className="label">
+          <label htmlFor='title' className='label'>
             Enter title:
           </label>
           <input
-            type="text"
+            type='text'
             value={title}
-            id="title"
+            id='title'
             onChange={(e) => setState({ title: e.target.value })}
-            placeholder="Enter blog title"
+            placeholder='Enter blog title'
           />
         </div>
         <div>
-          <label htmlFor="body" className="label">
+          <label htmlFor='body' className='label'>
             Enter body:
           </label>
           <textarea
-            type="text"
+            type='text'
             value={blogPost}
-            id="body"
+            id='body'
             onChange={(e) => setState({ blogPost: e.target.value })}
-            placeholder="Enter blog body"
+            placeholder='Enter blog body'
           ></textarea>
         </div>
 
-        <button type="submit">Submit</button>
+        <button type='submit'>Submit</button>
         {isError && <p>{error.response.data.message}</p>}
       </form>
     </section>

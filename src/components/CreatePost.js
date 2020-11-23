@@ -1,26 +1,26 @@
-import React from "react";
-import PostForm from "./PostForm";
-import { useCreatePost } from "../utils/posts";
-import { useHistory } from "react-router-dom";
-
+import React from 'react';
+import PostForm from './PostForm';
+import { createPost, usePostState, usePostDispatch } from '../contexts/posts';
 const CreatePost = () => {
-  const [create, { isLoading, isError, error, isSuccess }] = useCreatePost();
-  const history = useHistory();
+  const {
+    isCreateLoading: isLoading,
+    isCreateError: isError,
+    createError: error,
+  } = usePostState();
 
-  React.useLayoutEffect(() => {
-    if (isSuccess) {
-      history.push("/");
-    }
-  }, [isSuccess, history]);
+  const dispatch = usePostDispatch();
+
+  const onSubmit = async (formData) => {
+    await createPost(formData, dispatch);
+  };
+
+  if (isLoading) return <div>Creating new post...</div>;
 
   return (
     <section>
       <h2>Create A New Post</h2>
-      {isLoading ? (
-        <div>Creating new post...</div>
-      ) : (
-        <PostForm onSubmit={create} isError={isError} error={error} />
-      )}
+
+      <PostForm onSubmit={onSubmit} isError={isError} error={error} />
     </section>
   );
 };

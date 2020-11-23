@@ -1,7 +1,7 @@
-import React from "react";
-import { usePost, useUpdatePost } from "../utils/posts";
-import PostForm from "./PostForm";
-import { useHistory, useParams } from "react-router-dom";
+import React from 'react';
+import { usePost, useUpdatePost } from '../utils/posts';
+import PostForm from './PostForm';
+import { useHistory, useParams } from 'react-router-dom';
 
 const EditPost = () => {
   const { id } = useParams();
@@ -15,7 +15,7 @@ const EditPost = () => {
 
   React.useLayoutEffect(() => {
     if (isSuccess) {
-      history.push("/");
+      history.push('/');
     }
   }, [isSuccess, history]);
 

@@ -1,27 +1,26 @@
-import "./App.css";
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import CreatePost from "./components/CreatePost";
-import Dashboard from "./components/Dashboard";
-import EditPost from "./components/EditPost";
-import Header from "./components/Header";
+import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import CreatePost from './components/CreatePost';
+import Dashboard from './components/Dashboard';
+import EditPost from './components/EditPost';
+import Header from './components/Header';
 
-import Post from "./components/Post";
+import Post from './components/Post';
 
 function App() {
   React.useEffect(() => {
-    document.body.dataset.theme = "light";
+    document.body.dataset.theme = 'light';
   }, []);
 
   return (
-    <div className="app">
+    <div className='app'>
       <Router>
         <Header />
         <Switch>
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/createPost" component={CreatePost} />
-          <Route path="/post/:id" component={Post} />
-          <Route path="/editPost/:id" component={EditPost} />
+          <Route path='/' exact component={Dashboard} />
+          <Route path='/post/:id' component={Post} />
+          <Route path='/editPost/:id' component={EditPost} />
         </Switch>
       </Router>
     </div>
