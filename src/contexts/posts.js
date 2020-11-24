@@ -19,10 +19,13 @@ const reducer = (state, action) => {
     }
 
     case 'CREATE_POST_ERROR': {
+      console.log(action);
+      console.log('hello');
       return {
         ...state,
         isCreateLoading: false,
         isCreateError: true,
+        createError: action.error,
       };
     }
 
@@ -64,19 +67,7 @@ const reducer = (state, action) => {
       return { ...state, isGetPostsLoading: true };
     }
 
-    case 'GET_POST_SUCCESS': {
-      return { ...state, posts: action.posts, isGetPostsLoading: false };
-    }
-
     case 'GET_POSTS_ERROR': {
-      return { ...state, isGetPostLoading: false, isGetPostsError: true };
-    }
-
-    case 'GET_POST_LOADING': {
-      return { ...state, isGetPostLoading: true };
-    }
-
-    case 'GET_POST_ERROR': {
       return { ...state, isGetPostLoading: false, isGetPostsError: true };
     }
 
@@ -129,11 +120,13 @@ export const createPost = async (postData, postDispatch) => {
       postData
     );
 
-    console.log(response);
-
     postDispatch({ type: 'CREATE_POST_SUCCESS', post: response.data.post });
   } catch (error) {
-    postDispatch({ type: 'CREATE_POST_ERROR', error });
+    console.log(error.response.data.message);
+    postDispatch({
+      type: 'CREATE_POST_ERROR',
+      error: error.response.data.message,
+    });
   }
 };
 
@@ -170,12 +163,3 @@ export const getPosts = async (postDispatch) => {
   }
 };
 
-export const getPost = async (id, postDispatch) => {
-  postDispatch({ type: 'GET_POST_LOADING' });
-  try {
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/${id}`);
-    postDispatch({ type: 'GET_POST_SUCCESS', posts: [response.data.post] });
-  } catch (error) {
-    postDispatch({ type: 'GET_POST_ERROR', error });
-  }
-};

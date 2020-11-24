@@ -12,7 +12,7 @@ const PostForm = ({ onSubmit, isError, error, originalPost }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await onSubmit({
+      onSubmit({
         title,
         blogPost,
         createdAt: originalPost ? originalPost.createdAt : Date.now(),
@@ -50,7 +50,7 @@ const PostForm = ({ onSubmit, isError, error, originalPost }) => {
         </div>
 
         <button type='submit'>Submit</button>
-        {isError && <p>{error.response.data.message}</p>}
+        {isError && <p>{error}</p>}
       </form>
     </section>
   );

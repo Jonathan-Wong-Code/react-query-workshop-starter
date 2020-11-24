@@ -1,33 +1,36 @@
 import React from 'react';
-import { usePost, useUpdatePost } from '../utils/posts';
+import { usePost } from '../utils/posts';
+import { updatePost, usePostState, usePostDispatch } from '../contexts/posts';
 import PostForm from './PostForm';
 import { useHistory, useParams } from 'react-router-dom';
 
 const EditPost = () => {
   const { id } = useParams();
-  const { data: post } = usePost(id);
+  const { post, isLoading, isError } = usePost(id);
+  const dispatch = usePostDispatch();
+  const { isUpdateLoading, isUpdateError, isUpdateSuccess } = usePostState();
   const history = useHistory();
 
-  const [update, { isLoading, isSuccess, error, isError }] = useUpdatePost(
-    id,
-    post
-  );
-
   React.useLayoutEffect(() => {
-    if (isSuccess) {
+    if (isUpdateSuccess) {
       history.push('/');
     }
-  }, [isSuccess, history]);
+  }, [isUpdateSuccess, history]);
 
-  if (isLoading) return <div>Updating post...</div>;
-
+  const update = async (formData) => {
+    await updatePost(formData, dispatch);
+  };
+  if (isUpdateLoading) return <div>Updating post...</div>;
+  if (isLoading) return <div>Loading post...</div>;
+  if (isError) return <div>Error finding post to edit.</div>;
+  if (!post) return <div />;
   return (
     <div>
       <h2>Edit post</h2>
       <PostForm
         onSubmit={update}
-        error={error}
-        isError={isError}
+        // error={error}
+        isError={isUpdateError}
         originalPost={post}
       />
     </div>
