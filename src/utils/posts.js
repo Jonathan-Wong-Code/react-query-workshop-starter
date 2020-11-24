@@ -6,7 +6,7 @@ export const usePost = (postId) => {
   const { posts } = usePostState();
 
   const [state, setState] = useState({
-    isLoading: false,
+    isLoading: true,
     isError: false,
   });
 
@@ -24,16 +24,16 @@ export const usePost = (postId) => {
       }
     };
 
-    if (posts && posts.length !== 0) {
-      const foundPost = posts.find((post) => post.id === postId);
-      console.log(foundPost);
-      setState({
-        isLoading: false,
-        post: foundPost,
-      });
-    } else {
-      getPost();
-    }
+    // if (posts && posts.length !== 0) {
+    //   const foundPost = posts.find((post) => post.id === postId);
+    //   setState({
+    //     isLoading: false,
+    //     post: foundPost,
+    //   });
+    // } else {
+    //   getPost();
+    // }
+    getPost();
   }, [postId, posts]);
 
   return state;

@@ -19,8 +19,6 @@ const reducer = (state, action) => {
     }
 
     case 'CREATE_POST_ERROR': {
-      console.log(action);
-      console.log('hello');
       return {
         ...state,
         isCreateLoading: false,
@@ -122,7 +120,6 @@ export const createPost = async (postData, postDispatch) => {
 
     postDispatch({ type: 'CREATE_POST_SUCCESS', post: response.data.post });
   } catch (error) {
-    console.log(error.response.data.message);
     postDispatch({
       type: 'CREATE_POST_ERROR',
       error: error.response.data.message,
