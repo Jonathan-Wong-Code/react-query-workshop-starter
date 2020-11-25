@@ -50,7 +50,7 @@ const PostForm = ({ onSubmit, isError, error, originalPost }) => {
         </div>
 
         <button type='submit'>Submit</button>
-        {isError && <p>{error}</p>}
+        {isError && <p>{error.response.data.error}</p>}
       </form>
     </section>
   );

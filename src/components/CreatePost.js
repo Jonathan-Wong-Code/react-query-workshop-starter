@@ -15,8 +15,7 @@ const CreatePost = () => {
   };
 
   if (isLoading) return <div>Creating new post...</div>;
-  console.log(isError);
-  console.log(error);
+
   return (
     <section>
       <h2>Create A New Post</h2>

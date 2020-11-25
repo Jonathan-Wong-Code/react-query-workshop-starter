@@ -3,34 +3,37 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// import {
-//   ReactQueryCacheProvider,
-//   queryCache,
-//   ReactQueryConfigProvider,
-// } from 'react-query';
-// import { ReactQueryDevtools } from 'react-query-devtools';
+import {
+  ReactQueryCacheProvider,
+  queryCache,
+  ReactQueryConfigProvider,
+} from 'react-query';
+import { ReactQueryDevtools } from 'react-query-devtools';
 import { PostProvider } from './contexts/posts';
 if (process.env.NODE_ENV === 'development') {
   const { worker } = require('./tests/server');
   worker.start();
 }
 
-// const config = {
-//   queries: {
-//     retry(failureCount, error) {
-//       if (error.status === 404) return false;
-//       else if (failureCount < 2) return false;
-//       else return false;
-//     },
-//     refetchOnWindowFocus: false,
-//   },
-// };
+const config = {
+  queries: {
+    retry(failureCount, error) {
+      if (error.status === 404) return false;
+      else if (failureCount < 2) return false;
+      else return false;
+    },
+    refetchOnWindowFocus: false,
+  },
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <PostProvider>
-      <App />
-    </PostProvider>
+    <ReactQueryConfigProvider config={config}>
+      <ReactQueryDevtools initialIsOpen={true} />
+      <PostProvider>
+        <App />
+      </PostProvider>
+    </ReactQueryConfigProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

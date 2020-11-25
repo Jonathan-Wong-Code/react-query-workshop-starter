@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CreatePost from './components/CreatePost';
 import Dashboard from './components/Dashboard';
-import EditPost from './components/EditPost';
+// import EditPost from './components/EditPost';
 import Header from './components/Header';
 
 import Post from './components/Post';
